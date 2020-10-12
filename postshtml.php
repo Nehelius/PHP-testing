@@ -21,7 +21,7 @@ if (isset($_GET['user_id'])) {
                     $stmt = mysqli_stmt_execute($stmt);
                     $stmt = mysqli_stmt_bind_result($stmt, $) */
 
-        $res = mysqli_query($db, "SELECT * FROM to_do WHERE user_id='" . mysqli_real_escape_string($db, $_GET['user_id']) . "'");
+        $res = mysqli_query($db, "SELECT * FROM to_do WHERE user_id=" . mysqli_real_escape_string($db, $_GET['user_id']));
         $posts = mysqli_fetch_all($res, MYSQLI_ASSOC);
 
         foreach ($posts as $p) { ?>
