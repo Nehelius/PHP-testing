@@ -1,12 +1,10 @@
 <?php
+include('db.php');
 session_start();
 
 $username = "";
 $email    = "";
 $errors = array();
-
-/* $db = mysqli_connect("sql210.epizy.com", "epiz_25509785", "nIRVRsJrsXRu", "epiz_25509785_registry"); */
-$db = mysqli_connect("127.0.0.1:3306", "root", "", "user_registry");
 
 // Register the User
 

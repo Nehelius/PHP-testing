@@ -1,5 +1,6 @@
-<?php include('server.php') ?>
 <?php
+include('db.php');
+include('server.php');
 
 $user_res = mysqli_query($db, "SELECT * FROM registered_users");
 
@@ -62,13 +63,29 @@ if (isset($_GET['logout'])) {
             fetch("/registration/postshtml.php?user_id=" + userId)
                 .then(res => res.text())
                 .then(html => {
-                    postArea.innerHTML = html
+                    postArea.innerHTML = html;
                 });
+        }
+
+        function handleLoadMore(e) {
+            const loadMoreButton = e.target;
+            const userId = e.target.value;
+
+            if (loadMoreButton.classList.contains("load-more-button")) {
+                fetch("/registration/loadmore.php?user_id=" + userId)
+                    .then(res => res.text())
+                    .then(html => {
+                        postArea.innerHTML = html;
+                    });
+                loadMoreButton.remove();
+            }
         }
 
         buttons.forEach(button => {
             button.addEventListener('click', handleClick);
         })
+
+        document.addEventListener("click", handleLoadMore);
     </script>
 </body>
 
