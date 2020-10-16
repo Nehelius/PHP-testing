@@ -31,7 +31,7 @@ if (isset($_GET['user_id'])) {
                     $stmt = mysqli_stmt_bind_result($stmt, $) */
         $sql_escape = mysqli_real_escape_string($db, $_GET['user_id']);
         $_SESSION['start'] = 0;
-        $res = mysqli_query($db, "SELECT * FROM to_do WHERE user_id= $sql_escape ORDER BY 'id' ASC LIMIT {$_SESSION['start']}, 5");
+        $res = mysqli_query($db, "SELECT * FROM to_do WHERE user_id= $sql_escape ORDER BY id ASC LIMIT {$_SESSION['start']}, 5");
         $posts = mysqli_fetch_all($res, MYSQLI_ASSOC);
         $_SESSION['start'] = $_SESSION['start'] + 5;
 

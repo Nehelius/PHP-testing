@@ -8,7 +8,7 @@ include('server.php');
 $sql_escape = mysqli_real_escape_string($db, $_GET['user_id']);
 $res_users = mysqli_query($db, "SELECT * FROM registered_users WHERE id=$sql_escape");
 $found_user = mysqli_fetch_assoc($res_users);
-$res = mysqli_query($db, "SELECT * FROM to_do WHERE user_id=$sql_escape ORDER BY 'id' ASC LIMIT {$_SESSION['start']}, 5");
+$res = mysqli_query($db, "SELECT * FROM to_do WHERE user_id=$sql_escape ORDER BY id ASC LIMIT {$_SESSION['start']}, 5");
 $moreposts = mysqli_fetch_all($res, MYSQLI_ASSOC);
 $sql_count = mysqli_query($db, "SELECT COUNT(user_id) as cnt FROM to_do WHERE user_id=$sql_escape");
 $count_posts = mysqli_fetch_array($sql_count, MYSQLI_ASSOC);
