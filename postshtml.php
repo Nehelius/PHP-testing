@@ -3,15 +3,12 @@
 include('db.php');
 include('server.php');
 
-/* $sql = "SELECT * FROM to_do WHERE user_id=12 LIMIT 0, $limit"; */
-
 if (isset($_GET['user_id'])) {
 
     $sql_escape = mysqli_real_escape_string($db, $_GET['user_id']);
     $sql_count = mysqli_query($db, "SELECT COUNT(user_id) as cnt FROM to_do WHERE user_id=$sql_escape");
     $count_posts = mysqli_fetch_array($sql_count, MYSQLI_ASSOC);
     $_SESSION['count'] = $count_posts['cnt'];
-
 
     $res_users = mysqli_query($db, "SELECT * FROM registered_users WHERE id=$sql_escape");
     $found_user = mysqli_fetch_assoc($res_users);
@@ -30,9 +27,12 @@ if (isset($_GET['user_id'])) {
                     $stmt = mysqli_stmt_execute($stmt);
                     $stmt = mysqli_stmt_bind_result($stmt, $) */
         $sql_escape = mysqli_real_escape_string($db, $_GET['user_id']);
+
         $_SESSION['start'] = 0;
+
         $res = mysqli_query($db, "SELECT * FROM to_do WHERE user_id= $sql_escape ORDER BY id ASC LIMIT {$_SESSION['start']}, 5");
         $posts = mysqli_fetch_all($res, MYSQLI_ASSOC);
+
         $_SESSION['start'] = $_SESSION['start'] + 5;
 
         foreach ($posts as $p) { ?>
@@ -45,8 +45,8 @@ if (isset($_GET['user_id'])) {
             <hr>
         <?php
         }
-        if ($_SESSION['count'] >= 1) {
 
+        if ($_SESSION['count'] >= 1) {
         ?>
             <br>
             <button value="<?= $sql_escape ?>" name="load_more" class="load-more-button">Load more (<?= $_SESSION['count'] ?> remaining)</button>

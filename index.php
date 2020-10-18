@@ -1,5 +1,7 @@
-<?php include('server.php') ?>
 <?php
+
+include('server.php');
+include('db.php');
 
 if (!isset($_SESSION['username'])) {
     $_SESSION['msg'] = "You must log in first";
@@ -63,23 +65,26 @@ if (isset($_GET['logout'])) {
         $get_id = "SELECT * FROM registered_users WHERE username='{$_SESSION['username']}'";
         $q_id = mysqli_query($db, $get_id);
         $f_id = mysqli_fetch_assoc($q_id);
-        $the_id = $f_id['id'];
+        $session_id = $f_id['id'];
 
         if (isset($_POST['postbut'])) {
             $token = $_POST['token'];
+
             if ($_SESSION['last_token'] == $token) {
             } else {
                 $post = htmlspecialchars($_POST['postitem']);
                 $date_db = date('Y-m-d H:i:s');
                 $date = date('l jS \of F Y h:i:s A');
+
                 $sql = "INSERT INTO to_do (user_id, text, date) 
-                VALUES($the_id, '$post', '$date_db')";
+                VALUES($session_id, '$post', '$date_db')";
                 mysqli_query($db, $sql);
+
                 $_SESSION['last_token'] = $token;
             }
         }
 
-        $res = mysqli_query($db, "SELECT * FROM to_do WHERE user_id='$the_id'");
+        $res = mysqli_query($db, "SELECT * FROM to_do WHERE user_id='$session_id'");
         $req = mysqli_fetch_all($res, MYSQLI_ASSOC);
 
         ?>

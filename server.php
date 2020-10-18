@@ -76,7 +76,6 @@ if (isset($_POST['login_user'])) {
     }
 
     if (count($errors) == 0) {
-        /* $sql = "SELECT * FROM epiz_25509785_registry.registered_users WHERE username='$username'"; */
         $sql = "SELECT * FROM registered_users WHERE username='$username'";
         $result = $db->query($sql);
         if ($result->num_rows === 1) {

@@ -15,6 +15,7 @@ if (isset($_GET['logout'])) {
     unset($_SESSION['username']);
     header("location: login.php");
 }
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -45,7 +46,6 @@ if (isset($_GET['logout'])) {
                 <?php endif;
                 }
                 ?>
-
             </ul>
         </form>
         <div class="postArea">
